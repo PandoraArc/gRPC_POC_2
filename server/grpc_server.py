@@ -6,16 +6,18 @@ import gRPC.coffee_pb2 as coffee_pb2
 import gRPC.coffee_pb2_grpc as coffee_pb2_grpc
 
 from server_func.coffeeMaker import making_coffee
+from server_func.resopnsePing import pingPongJson
 
 class CoffeeServicer(coffee_pb2_grpc.CoffeeServicer):
     def OrderCoffee(self, request, context):
         print("We got some coffee order")
         print("request: ", request)
         try:
-            request_json = json.loads(request.requestJsonStr)
-            response_json = making_coffee(request_json['coffee'], "gRPC")
+            # request_json = json.loads(request.requestJsonStr)
+            # response_json = making_coffee(request_json['coffee'], "gRPC")
             response = coffee_pb2.CoffeeResponse()
-            response.responseJsonStr = json.dumps(response_json)
+            # response.responseJsonStr = json.dumps(response_json)
+            response.responseJsonStr = pingPongJson(request.requestJsonStr)
         except Exception as e:
             print(f"Exception {e}")
         return response
