@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service Coffee {
+    rpc OrderCoffee(CoffeeRequest) returns (CoffeeResponse);
+}
+
+message CoffeeRequest {
+    string requestJsonStr = 1;
+}
+
+message CoffeeResponse {
+    string responseJsonStr = 1;
+}
